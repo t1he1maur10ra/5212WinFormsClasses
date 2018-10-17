@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 
@@ -13,7 +7,7 @@ namespace ClassesExercise
 {
     public partial class frmMain : Form
     {
-        List<Employee> employees = new List<Employee>();
+        List<Deets> people = new List<Deets>();
         public frmMain()
         {
             Thread t = new Thread(new ThreadStart(StartSplash));
@@ -30,40 +24,61 @@ namespace ClassesExercise
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            Employee newEmployee = new Employee();
-            newEmployee.Fname = txtFirstName.Text;
-            newEmployee.Lname = txtLastName.Text;
-            newEmployee.Age = int.Parse(txtAge.Text);
-            employees.Add(newEmployee);
+            //Create object and populate its properties
+            Deets newPerson = new Deets();
+            newPerson.Fname = txtFirstName.Text;
+            newPerson.Lname = txtLastName.Text;
+            newPerson.Age = int.Parse(txtAge.Text);
+            people.Add(newPerson);
+            //Clear the text boxes ready for the next input
             txtAge.Text = null;
             txtFirstName.Text = null;
             txtLastName.Text = null;
+            //Display label confirming record has been created
+            lblOutput.Text = "Record created";
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
+            //Clear everything
             txtAge.Text = null;
             txtFirstName.Text = null;
             txtLastName.Text = null;
+            lblOutput.Text = null;
+            listBox1.Items.Clear();
         }
 
         private void btnDisplay_Click(object sender, EventArgs e)
         {
-            foreach(var x in employees)
+            //User feedback
+            lblOutput.Text = "Displaying all records";
+            //Display the ojects info in an easy to read format.
+            foreach (var x in people)
             {
-                listBox1.Items.Add(x.Display());
+                listBox1.Items.Add(x.DisplayName());
+                listBox1.Items.Add("Age: " + x.Age);
+                listBox1.Items.Add("*----------------------*");
             }
         }
-    }
-    class Employee
-    {
-        public string Fname { get; set; }
-        public string Lname { get; set; }
-        public int Age { get; set; }
 
-        public string Display()
+        private void frmMain_Load(object sender, EventArgs e)
         {
-            return $"Name: {Fname} {Lname} Age: {Age}";
+            lblOutput.Text = null;
+        }
+
+        private void txtFirstName_TextChanged(object sender, EventArgs e)
+        {
+            lblOutput.Text = null;
+        }
+
+        private void txtLastName_TextChanged(object sender, EventArgs e)
+        {
+            lblOutput.Text = null;
+        }
+
+        private void txtAge_TextChanged(object sender, EventArgs e)
+        {
+            lblOutput.Text = null;
         }
     }
 }

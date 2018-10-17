@@ -175,7 +175,7 @@
             this.Controls.Add(this.txtFirstName);
             this.Controls.Add(this.listBox1);
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MinimizeBox = false;
+            this.MaximizeBox = false;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Banana Cage";
